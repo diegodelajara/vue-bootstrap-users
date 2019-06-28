@@ -21,15 +21,24 @@
 </template>
 
 <script>
-import axios from 'axios'
 	export default {
+		props: {
+			perPage: {
+				type: Number,
+				required: true
+			},
+			users: {
+				type: Array,
+				required: true
+			}
+		},
     data () {
       return {
         users: []
       }
     },
-		async mounted() {
-      await axios.get('https://reqres.in/api/users').then(response => this.users = response.data)
+		mounted() {
+			this.$emit('on-get-users')
 		}
 	}
 </script>

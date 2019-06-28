@@ -22,7 +22,11 @@
           </header>
           <div class="users-container">
             
-            <Users />
+            <Users
+              :perPage="perPage"
+              :users="users"
+              @on-get-users="getUsers"
+            />
 
           </div>
         </div>
@@ -48,9 +52,13 @@ import Users from './Users'
       }
     },
     methods: {
-      
       onSelect() {
-        console.log(this.perPage)
+        this.getUsers()
+      },
+      async getUsers() {
+        const url = `https://reqres.in/api/users?page=1&per_page=${this.perPage}`
+        await axios.get(url)
+              .then(response => this.users = response.data)
       }
     }
   }
