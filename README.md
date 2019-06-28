@@ -1,4 +1,3 @@
-# frogmi-test
 
 ## Project setup
 ```
