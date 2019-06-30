@@ -4,7 +4,6 @@
 		<div class="user">
 			<div 
 				class="bg"
-				:style="`background-image: url(${getSelectedUser.avatar});`"
 			>
 				
 			</div>
@@ -46,7 +45,7 @@ import { mapGetters } from 'vuex'
 			grid-row: 1;
 			position: relative;
 			z-index: 1;
-			opacity: .3;
+			background-image: linear-gradient(#ea8d8d, #a890fe);
 		}
 		.avatar {
 			grid-column: 2/4;
@@ -57,7 +56,7 @@ import { mapGetters } from 'vuex'
 	    align-items: center;
 			img {
 		    width: 100%;
-		    max-width: 170px;
+		    max-width: 150px;
 		    margin: 0 auto;
 		    display: block;
 		    border-radius: 50%;

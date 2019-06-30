@@ -1,6 +1,7 @@
 <template>
 	<section>
-		<table class="table table-hover table-striped">
+		<table
+			class="table table-hover table-striped">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -8,8 +9,20 @@
         </tr>
       </thead>
       <tbody>
+      	<tr
+        	v-for="(user, key) in getNewUsers"
+        	:key="key"
+        	@click="showUserProfile(user)"
+        >
+          <td scope="row">
+          	id
+          <td>
+            <p>{{ user.name }} {{ user.lastName }}</p>
+            <small>{{ user.email}}</small>
+          </td>
+      	</tr>
         <tr
-        	v-for="(user, key) in users.data"
+        	v-for="(user, key) in getAllUsers.data"
         	:key="key"
         	@click="showUserProfile(user)"
         >
@@ -34,7 +47,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import UserProfile from './UserProfile'
 
 	export default {
@@ -45,20 +58,21 @@ import UserProfile from './UserProfile'
 			perPage: {
 				default: 2,
 				required: true
-			},
-			users: {
-				default: [],
-				required: true
+			}
+		},
+		data () {
+			return {
+				users: []
 			}
 		},
 		methods: {
-			...mapMutations([
-				'setSelectedUser'
+			...mapActions([
+				'getUsers'
 			]),
-
-			setProfile() {
-
-			},
+			...mapMutations([
+				'setSelectedUser',
+				'setAllUsers'
+			]),
 
 			showUserProfile (row) {
 				// Guardar en Vuex el usuario seleccionado
@@ -72,9 +86,14 @@ import UserProfile from './UserProfile'
 		    this.$modal.hide('profile');
 		  }
 		},
-		mounted() {
-			// Cuando se monta el componente, se emiten este evento, para que lo obtenga y trabaje el padre
-			this.$emit('on-get-users')
+		computed: {
+			...mapGetters([
+				'getAllUsers',
+				'getNewUsers'
+			])
+		},
+		async mounted() {
+			await	this.getUsers(this.perPage)
 		}
 	}
 </script>

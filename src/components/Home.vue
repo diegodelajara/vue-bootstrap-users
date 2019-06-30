@@ -32,13 +32,10 @@
               <br>
             <Users
               :perPage="perPage"
-              :users="users"
-              @on-get-users="getUsers"
             />
             <div class="col-sm-6 col-sm-pull-right">
               <Pagination
                 :perPage="perPage"
-                :users="users"
               />
             </div>
           </div>
@@ -49,19 +46,26 @@
           :width="300"
           :height="270"
          >
-        formulario
+          
+          <Form
+            @on-close-modal="onCloseModal"
+          />
+
         </modal>
       </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
+
 import Users from './Users'
 import Pagination from './Pagination'
+import Form from './AddUserForm'
 
   export default {
     components: {
+      Form,
       Pagination,
       Users
     },
@@ -72,18 +76,22 @@ import Pagination from './Pagination'
       }
     },
     methods: {
+      ...mapActions([
+        'getUsers'
+      ]),
       onSelect() {
-        this.getUsers()
+        this.getAllUsers()
       },
-      async getUsers() {
-        const perPage = parseInt(this.perPage)
-        const url = `https://reqres.in/api/users?page=1&per_page=${perPage}`
-        await axios.get(url)
-              .then(response => this.users = response.data)
+      async getAllUsers() {
+        this.getUsers(this.perPage)
       },
       addUser() {
         // Mostrar modal
         this.$modal.show('addUserModal')
+      },
+      onCloseModal() {
+        // Cerrar modal
+        this.$modal.hide('addUserModal')
       }
     }
   }
