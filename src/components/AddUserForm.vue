@@ -57,8 +57,8 @@ import { mapMutations } from 'vuex'
 			]),
 			addUser() {
 				const user = {
-					name: this.nombre,
-					lastName: this.apellido,
+					first_name: this.nombre,
+					last_name: this.apellido,
 					email: this.email,
 					avatar: ''
 				}

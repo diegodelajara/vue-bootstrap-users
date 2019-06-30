@@ -8,8 +8,7 @@ export default new Vuex.Store({
   // Estados der mi app
 	state: {
       selectedUser: [],
-      users: [],
-      newUsers: []
+      users: []
   },
   getters: {
     // Obtener todos los usarios, guardados en mi state
@@ -18,10 +17,7 @@ export default new Vuex.Store({
     },
   	getSelectedUser(state) {
   		return state.selectedUser
-  	},
-    getNewUsers(state) {
-      return state.newUsers
-    }
+  	}
   },
   // Mutaciones que alteran el estado
   mutations: {

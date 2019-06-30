@@ -9,18 +9,6 @@
         </tr>
       </thead>
       <tbody>
-      	<tr
-        	v-for="(user, key) in getNewUsers"
-        	:key="key"
-        	@click="showUserProfile(user)"
-        >
-          <td scope="row">
-          	id
-          <td>
-            <p>{{ user.name }} {{ user.lastName }}</p>
-            <small>{{ user.email}}</small>
-          </td>
-      	</tr>
         <tr
         	v-for="(user, key) in getAllUsers.data"
         	:key="key"
@@ -88,8 +76,7 @@ import UserProfile from './UserProfile'
 		},
 		computed: {
 			...mapGetters([
-				'getAllUsers',
-				'getNewUsers'
+				'getAllUsers'
 			])
 		},
 		async mounted() {
