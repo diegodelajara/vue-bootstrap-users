@@ -1,26 +1,33 @@
 <template>
 	<section>
-		<table class="table table-hover">
+		<table class="table table-hover table-striped">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">User</th>
-          <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(user, key) in users.data" :key="key">
-          <th scope="row">{{ user.id}}</th>
+        <tr
+        	v-for="(user, key) in users.data"
+        	:key="key"
+        	@click="showUserProfile(user)"
+        >
+          <td scope="row">
+          	{{ user.id < 10 ? '0': '' }}{{ user.id}}</td>
           <td>
             <p>{{ user.first_name }} {{ user.last_name }}</p>
             <small>{{ user.email}}</small>
           </td>
-          <td><span @click="showUserProfile(user)">Editar</span></td>
         </tr>
       </tbody>
     </table>
 
-    <modal name="hello-world">
+    <modal
+    	name="profile"
+    	:width="300"
+      :height="270"
+     >
 	  	<user-profile />
 		</modal>
 	</section>
@@ -56,12 +63,7 @@ import UserProfile from './UserProfile'
 				// Guardar en Vuex el usuario seleccionado
 				this.setSelectedUser(row)
 				// Mostrar modal
-		    this.$modal.show(
-		    	'hello-world',
-		    	{
-					  draggable: true
-					}
-				)
+		    this.$modal.show('profile')
 		  },
 
 		  hideUserProfile () {
@@ -76,8 +78,17 @@ import UserProfile from './UserProfile'
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
+	.table {
+		tbody tr {
+			cursor: pointer;
+		}
+		p {
+			margin: 0;		
+		}
+	}
 	.v--modal-box.v--modal {
     height: 100% !important;
+    top: 170px !important;
 	}
 </style>

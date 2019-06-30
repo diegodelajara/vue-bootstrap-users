@@ -2,17 +2,20 @@
 	<section>
 		<!-- Modal -->
 		<div class="user">
-			<h2>Titulo</h2>
+			<div 
+				class="bg"
+				:style="`background-image: url(${getSelectedUser.avatar});`"
+			>
+				
+			</div>
 			<div class="avatar">
 				<img :src="getSelectedUser.avatar" alt="">
 			</div>
-			<span class="nameTitle">Nombre</span>
 			<div class="name">
-				<p>{{ getSelectedUser.first_name }}</p>
+				<p>{{ getSelectedUser.first_name }} {{ getSelectedUser.last_name }}</p>
 			</div>
-			<span class="lastNameTitle">Apellido</span>
-			<div class="lastName">
-				<span>{{ getSelectedUser.last_name }}</span>
+			<div class="email">
+				<small>{{ getSelectedUser.email }}</small>
 			</div>
 		</div>
 	</section>
@@ -32,36 +35,43 @@ import { mapGetters } from 'vuex'
 
 <style scoped lang="scss">
 	.user {
-		padding: 10px;
 		display: grid;
-		grid-template-columns: 100px 1fr 100px;
-		grid-template-rows: repeat(7, auto);
-		h2 {
-			grid-column: 2;
-			grid-row: 1
+		grid-template-columns: 20px 1fr 1fr 20px;
+		grid-template-rows: 205px auto auto auto;
+		p, h2 {
+			margin: 0;
+		}
+		.bg {
+			grid-column: 1/5;
+			grid-row: 1;
+			position: relative;
+			z-index: 1;
+			opacity: .3;
 		}
 		.avatar {
-			grid-column: 2;
-			grid-row: 2;
+			grid-column: 2/4;
+			grid-row: 1;
+			z-index: 2;
+			display: flex;
+	    justify-content: center;
+	    align-items: center;
 			img {
 		    width: 100%;
+		    max-width: 170px;
+		    margin: 0 auto;
+		    display: block;
+		    border-radius: 50%;
 			} 
 		}
-		.nameTitle {
-			grid-column: 2;
-			grid-row: 3
-		}
 		.name {
+			margin-top: 4px;
 			grid-column: 2;
-			grid-row: 4
+			grid-row: 3;
 		}
-		.lastNameTitle {
+		.email {
 			grid-column: 2;
-			grid-row: 5;
-		}
-		.lastName {
-			grid-column: 2;
-			grid-row: 6
+			grid-row: 4;
+			color: #9e9e9e;
 		}
 	}
 </style>
