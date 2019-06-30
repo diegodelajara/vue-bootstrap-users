@@ -43,10 +43,11 @@ import UserProfile from './UserProfile'
 		},
 		props: {
 			perPage: {
-				type: Number,
+				default: 2,
 				required: true
 			},
 			users: {
+				default: [],
 				required: true
 			}
 		},
@@ -68,7 +69,7 @@ import UserProfile from './UserProfile'
 
 		  hideUserProfile () {
 		  	// Ocultar modal
-		    this.$modal.hide('hello-world');
+		    this.$modal.hide('profile');
 		  }
 		},
 		mounted() {

@@ -8,7 +8,13 @@
                 <i class="fas fa-user"></i> Users
               </div>
               <div class="col-sm-4">
-                <button type="button" class="btn btn-success btn-lg">Add user</button>
+                <button
+                  type="button"
+                  class="btn btn-success btn-lg"
+                  @click="addUser()"
+                >
+                    Add user
+                </button>
               </div>
             </div>
             
@@ -38,6 +44,13 @@
           </div>
         </div>
 
+        <modal
+          name="addUserModal"
+          :width="300"
+          :height="270"
+         >
+        formulario
+        </modal>
       </div>
     </div>
 </template>
@@ -67,6 +80,10 @@ import Pagination from './Pagination'
         const url = `https://reqres.in/api/users?page=1&per_page=${perPage}`
         await axios.get(url)
               .then(response => this.users = response.data)
+      },
+      addUser() {
+        // Mostrar modal
+        this.$modal.show('addUserModal')
       }
     }
   }
