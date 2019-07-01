@@ -8,7 +8,7 @@
           <th scope="col">User</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="getUsers != null">
         <tr
         	v-for="(user, key) in getAllUsers.data"
         	:key="key"
@@ -42,12 +42,6 @@ import { gradientColors } from '../assets/colors'
 	export default {
 		components: {
 			UserProfile
-		},
-		props: {
-			perPage: {
-				default: 2,
-				required: true
-			}
 		},
 		data () {
 			return {
@@ -90,7 +84,7 @@ import { gradientColors } from '../assets/colors'
 			])
 		},
 		async mounted() {
-			await	this.getUsers(this.perPage)
+			await this.getUsers()
 		}
 	}
 </script>

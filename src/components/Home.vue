@@ -28,15 +28,13 @@
                 <option value="10">10</option>
               </select>
             </div>
+
+            <Users />
             
-              <br>
-            <Users
-              :perPage="perPage"
-            />
             <div class="col-sm-6 col-sm-pull-right">
-              <Pagination
-                :perPage="perPage"
-              />
+            
+              <Pagination />
+            
             </div>
           </div>
         </div>
@@ -57,7 +55,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 import Users from './Users'
 import Pagination from './Pagination'
@@ -71,19 +69,33 @@ import Form from './AddUserForm'
     },
     data () {
       return {
+        page: 1,
         perPage: 2,
         users: []
       }
     },
     methods: {
+      ...mapMutations([
+        'setPage',
+        'setPerPage'
+      ]),
       ...mapActions([
         'getUsers'
       ]),
-      onSelect() {
+      async onSelect() {
+
+        const page =  parseInt(this.page)
+        const perPage = parseInt(this.perPage)
+        
+        // Se guarda en el Store, los parametros de la paginación
+        await this.setPage(page)
+        await this.setPerPage(perPage)
+        //Obtener usuarios desde el API
         this.getAllUsers()
       },
       async getAllUsers() {
-        this.getUsers(this.perPage)
+        // Obtener los usuarios
+        this.getUsers()
       },
       addUser() {
         // Mostrar modal
@@ -93,6 +105,15 @@ import Form from './AddUserForm'
         // Cerrar modal
         this.$modal.hide('addUserModal')
       }
+    },
+    async created() {
+
+      const page =  parseInt(this.page)
+      const perPage = parseInt(this.perPage)
+        
+      // Cuando se monta la app, se guarda en el Store, los parametros de la paginación
+      await this.setPage(page)
+      await this.setPerPage(perPage)
     }
   }
 </script>

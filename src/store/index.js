@@ -9,7 +9,11 @@ export default new Vuex.Store({
 	state: {
       selectedUser: [],
       users: [],
-      gradientColor: null
+      gradientColor: null,
+      params: {
+        page: 1,
+        perPage: 2
+      }
   },
   getters: {
     // Obtener todos los usarios, guardados en mi state
@@ -38,13 +42,20 @@ export default new Vuex.Store({
     },
     setGradientColor(state, color) {
       state.gradientColor = color
+    },
+    setPage(state, page) {
+      state.params.page = page
+    },
+    setPerPage(state, perPage) {
+      state.params.perPage = perPage
     }
   },
   // Acciones para llamar a las APIs y devolver la respuesta
   actions: {
-    async getUsers(context, perPage) {
-        const num = parseInt(perPage)
-        const url = `https://reqres.in/api/users?page=1&per_page=${num}`
+    async getUsers(context) {
+        const page = context.state.params.page
+        const perPage = context.state.params.perPage
+        const url = `https://reqres.in/api/users?page=${page}&per_page=${perPage}`
         try {
           // se guarda la respuesta de la consulta a la API, en la constante {data}, que sería como guardar response.data
           const { data } = await axios.get(url)
