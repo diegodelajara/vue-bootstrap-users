@@ -1,5 +1,6 @@
 <template>
-	<div class="container">
+	<div class="container add-user-modal">
+		<h3>Agregar usuario</h3>
 		<div class="row">
 			<div class="col-sm-12">
 				<input
@@ -30,7 +31,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<button
-					class="btn btn-primary"
+					class="btn btn-primary btn-large"
 					type="button"
 					@click="addUser">
 					Agregar
@@ -69,6 +70,11 @@ import { mapMutations } from 'vuex'
 	}
 </script>
 
-<style>
-	
+<style lang="scss" scoped>
+	.add-user-modal {
+		padding: 10px;
+		input {
+			margin: 3px 0;
+		}
+	}
 </style>
