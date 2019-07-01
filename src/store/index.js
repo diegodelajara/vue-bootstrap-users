@@ -25,6 +25,12 @@ export default new Vuex.Store({
     },
     getGradientColor(state) {
       return state.gradientColor
+    },
+    getPage(state) {
+      return state.params.page
+    },
+    getPerPage(state) {
+      return state.params.perPage
     }
   },
   // Mutaciones que alteran el estado
