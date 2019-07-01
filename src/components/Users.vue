@@ -37,6 +37,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import UserProfile from './UserProfile'
+import { gradientColors } from '../assets/colors'
 
 	export default {
 		components: {
@@ -50,6 +51,7 @@ import UserProfile from './UserProfile'
 		},
 		data () {
 			return {
+				colors: gradientColors,
 				users: []
 			}
 		},
@@ -59,12 +61,15 @@ import UserProfile from './UserProfile'
 			]),
 			...mapMutations([
 				'setSelectedUser',
-				'setAllUsers'
+				'setAllUsers',
+				'setGradientColor'
 			]),
 
 			showUserProfile (row) {
 				// Guardar en Vuex el usuario seleccionado
 				this.setSelectedUser(row)
+				// Guardar en Vuex un color random
+				this.chooseColor(0, 4)
 				// Mostrar modal
 		    this.$modal.show('profile')
 		  },
@@ -72,6 +77,11 @@ import UserProfile from './UserProfile'
 		  hideUserProfile () {
 		  	// Ocultar modal
 		    this.$modal.hide('profile');
+		  },
+		  async chooseColor(min, max) {
+		  	const num = await Math.floor(Math.random() * (max - min)) + min
+		  	console.log(this.colors)
+		  	this.setGradientColor(this.colors[num])
 		  }
 		},
 		computed: {

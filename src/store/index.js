@@ -8,16 +8,20 @@ export default new Vuex.Store({
   // Estados der mi app
 	state: {
       selectedUser: [],
-      users: []
+      users: [],
+      gradientColor: null
   },
   getters: {
     // Obtener todos los usarios, guardados en mi state
     getAllUsers (state) {
       return state.users
     },
-  	getSelectedUser(state) {
-  		return state.selectedUser
-  	}
+    getSelectedUser(state) {
+      return state.selectedUser
+    },
+    getGradientColor(state) {
+      return state.gradientColor
+    }
   },
   // Mutaciones que alteran el estado
   mutations: {
@@ -31,6 +35,9 @@ export default new Vuex.Store({
   	},
     setUser(state, user) {
       state.users.data.push(user)
+    },
+    setGradientColor(state, color) {
+      state.gradientColor = color
     }
   },
   // Acciones para llamar a las APIs y devolver la respuesta

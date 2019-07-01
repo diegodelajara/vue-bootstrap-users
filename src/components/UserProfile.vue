@@ -4,6 +4,7 @@
 		<div class="user">
 			<div 
 				class="bg"
+				:style="`background-image: linear-gradient(${getGradientColor.first}, ${getGradientColor.second});`"
 			>
 				
 			</div>
@@ -26,7 +27,8 @@ import { mapGetters } from 'vuex'
 	export default {
 		computed: {
 			...mapGetters([
-				'getSelectedUser'
+				'getSelectedUser',
+				'getGradientColor'
 			])
 		}
 	}
@@ -45,7 +47,6 @@ import { mapGetters } from 'vuex'
 			grid-row: 1;
 			position: relative;
 			z-index: 1;
-			background-image: linear-gradient(#ea8d8d, #a890fe);
 		}
 		.avatar {
 			grid-column: 2/4;
