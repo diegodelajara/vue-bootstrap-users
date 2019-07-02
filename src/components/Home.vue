@@ -82,8 +82,10 @@ import Form from './AddUserForm'
       ...mapActions([
         'getUsers'
       ]),
+      // Función que se ejecuta cada vez que se cambia la opciòn en el select 
       async onSelect() {
 
+        // Se guardan las variables de page y perPage, obtenidas desde el Store
         const page =  parseInt(this.page)
         const perPage = parseInt(this.perPage)
         

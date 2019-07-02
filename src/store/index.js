@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import axios from 'axios'
+import moment from 'moment'
 
 export default new Vuex.Store({
   // Estados der mi app
@@ -59,19 +60,39 @@ export default new Vuex.Store({
   // Acciones para llamar a las APIs y devolver la respuesta
   actions: {
     async getUsers(context) {
-        const page = context.state.params.page
-        const perPage = context.state.params.perPage
-        const url = `https://reqres.in/api/users?page=${page}&per_page=${perPage}`
-        try {
-          // se guarda la respuesta de la consulta a la API, en la constante {data}, que sería como guardar response.data
-          const { data } = await axios.get(url)
-          context.commit('setAllUsers', data)
-          return true 
+      const page = context.state.params.page
+      const perPage = context.state.params.perPage
+      const url = `https://reqres.in/api/users?page=${page}&per_page=${perPage}`
+      try {
+        // se guarda la respuesta de la consulta a la API, en la constante {data}, que sería como guardar response.data
+        const { data } = await axios.get(url)
+        context.commit('setAllUsers', data)
+        return true 
 
-        } catch(e) {
-          // statements
-          console.log(e);
+      } catch(e) {
+        // statements
+        console.log(e);
+      }
+    },
+    async addNewUser(context, user) {
+      const url = 'https://reqres.in/api/users'
+      try {
+        let body = new URLSearchParams()
+        body.append('first_name', user.first_name)
+        body.append('last_name', user.last_name)
+        body.append('image', user.email)
+        body.append('avatar', user.avatar)
+
+        const { data } = await axios.post(url, body, { headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }})
+        if (data) {
+          data.createdAt = moment(data.createdAt).format('DD MM YYYY')
         }
+        return data
+      } catch(e) {
+        // statements
+        console.log(e);
+      }
+
     }
   }
 })

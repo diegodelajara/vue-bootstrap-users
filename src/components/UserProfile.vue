@@ -17,6 +17,9 @@
 			<div class="email">
 				<small>{{ getSelectedUser.email }}</small>
 			</div>
+			<div class="date" v-if="getSelectedUser.createdAt">
+				<small>{{ getSelectedUser.createdAt }}</small>
+			</div>
 		</div>
 	</section>
 </template>
@@ -71,6 +74,11 @@ import { mapGetters } from 'vuex'
 		.email {
 			grid-column: 2;
 			grid-row: 4;
+			color: #9e9e9e;
+		}
+		.date {
+			grid-column: 3;
+			grid-row: 3;
 			color: #9e9e9e;
 		}
 	}

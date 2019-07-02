@@ -42,11 +42,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 	export default {
 		data () {
 			return {
+				avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
 				apellido: null,
 				email: null,
 				nombre: null
@@ -56,14 +57,25 @@ import { mapMutations } from 'vuex'
 			...mapMutations([
 				'setUser'
 			]),
-			addUser() {
-				const user = {
+			...mapActions([
+				'addNewUser'
+			]),
+			async addUser() {
+				// Agregar nuevo usuario
+				const newUser = await {
 					first_name: this.nombre,
 					last_name: this.apellido,
 					email: this.email,
-					avatar: ''
+					avatar: this.avatar
 				}
-				this.setUser(user)
+				// Action, para agregar nuevo usuario
+				const u = await this.addNewUser(newUser)
+
+				console.log(u)
+				this.setUser(u)
+				return
+				// console.log('%c New user', 'color: blue;', u)
+				// Se emite el evento, para cerrar el modal luego de agregar el usuario
 				this.$emit('on-close-modal')
 			}
 		}
